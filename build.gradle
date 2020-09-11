@@ -1,0 +1,55 @@
+plugins {
+    id 'java'
+    id 'java-gradle-plugin'
+    id 'com.gradle.plugin-publish' version '0.12.0'
+    id 'maven-publish'
+}
+
+group = 'net.covers1624'
+archivesBaseName = 'JarSignPlugin'
+version = '0.0.0'
+
+targetCompatibility = "1.8"
+sourceCompatibility = "1.8"
+
+version = "$version." + (System.getenv("BUILD_NUMBER") ?: "1")
+println "Starting build of ${archivesBaseName}, Version: ${version}"
+
+repositories {
+    mavenLocal()
+    jcenter()
+    mavenCentral()
+}
+
+dependencies {
+    implementation gradleApi()
+    implementation 'org.apache.commons:commons-lang3:3.9'
+}
+
+pluginBundle {
+    website = 'https://github.com/covers1624/JarSignPlugin'
+    vcsUrl = 'https://github.com/covers1624/JarSignPlugin'
+    tags = ['signing']
+}
+
+gradlePlugin {
+    plugins {
+        signPlugin {
+            id = "net.covers1624.signing"
+            displayName = "Jar Signing"
+            description = "Simple Jar Signing"
+            implementationClass = "net.covers1624.jarsign.SignPlugin"
+        }
+    }
+}
+
+publishing {
+    publications {
+        JarSignPlugin(MavenPublication) {
+            groupId project.group
+            artifactId project.archivesBaseName
+            version project.version
+            from components.java
+        }
+    }
+}
