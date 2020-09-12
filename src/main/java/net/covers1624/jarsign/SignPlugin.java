@@ -43,7 +43,6 @@ public class SignPlugin implements Plugin<Project> {
 
         extensions.forEach(e -> {
             e.getTasks().forEach(task -> {
-                project.getLogger().lifecycle("Adding task for: " + task.getName());
                 SignJarTask signTask = project.getTasks().create("sign" + StringUtils.capitalize(task.getName()), SignJarTask.class);
                 task.finalizedBy(signTask);
                 signTask.dependsOn(task);
