@@ -7,7 +7,7 @@ plugins {
 
 group = 'net.covers1624'
 archivesBaseName = 'JarSignPlugin'
-version = '0.0.0'
+version = '1.0.0'
 
 targetCompatibility = "1.8"
 sourceCompatibility = "1.8"
