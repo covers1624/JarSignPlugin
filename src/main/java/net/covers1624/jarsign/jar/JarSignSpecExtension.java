@@ -30,7 +30,7 @@ public class JarSignSpecExtension implements JarSignSpec {
     private Object tsaCert;
 
     private final List<Jar> tasks = new ArrayList<>();
-    private final List<Task> afterTasks = new ArrayList();
+    private final List<Object> afterTasks = new ArrayList<>();
 
     public JarSignSpecExtension(Project project) {
         this.project = project;
@@ -40,7 +40,7 @@ public class JarSignSpecExtension implements JarSignSpec {
         tasks.add(task);
     }
 
-    public void after(Task task) {
+    public void after(Object task) {
         afterTasks.add(task);
     }
 
@@ -52,7 +52,7 @@ public class JarSignSpecExtension implements JarSignSpec {
         return tasks;
     }
 
-    public List<Task> getAfterTasks() {
+    public List<Object> getAfterTasks() {
         return afterTasks;
     }
 
