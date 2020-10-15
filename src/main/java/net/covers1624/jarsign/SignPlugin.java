@@ -49,6 +49,7 @@ public class SignPlugin implements Plugin<Project> {
                 signTask.setInput(task.getArchivePath());
                 signTask.setOutput(task.getArchivePath());
                 signTask.copyFrom(e);
+                e.getAfterTasks().forEach(signTask::dependsOn);
             });
         });
     }

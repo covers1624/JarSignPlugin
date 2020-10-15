@@ -1,6 +1,7 @@
 package net.covers1624.jarsign.jar;
 
 import org.gradle.api.Project;
+import org.gradle.api.Task;
 import org.gradle.api.tasks.bundling.Jar;
 
 import java.util.ArrayList;
@@ -29,6 +30,7 @@ public class JarSignSpecExtension implements JarSignSpec {
     private Object tsaCert;
 
     private final List<Jar> tasks = new ArrayList<>();
+    private final List<Task> afterTasks = new ArrayList();
 
     public JarSignSpecExtension(Project project) {
         this.project = project;
@@ -38,12 +40,20 @@ public class JarSignSpecExtension implements JarSignSpec {
         tasks.add(task);
     }
 
+    public void after(Task task) {
+        afterTasks.add(task);
+    }
+
     public void sign(Collection<Jar> tasks) {
         this.tasks.addAll(tasks);
     }
 
     public List<Jar> getTasks() {
         return tasks;
+    }
+
+    public List<Task> getAfterTasks() {
+        return afterTasks;
     }
 
     //@formatter:off
